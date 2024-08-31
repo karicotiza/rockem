@@ -1,0 +1,28 @@
+name: rockem
+
+services:
+  train:
+    container_name: train
+    build: 
+      dockerfile: Dockerfile
+      context: src
+    volumes:
+      - ./preprocessed_data:/preprocessed_data
+    command: "python -m piper_train
+      --dataset-dir /preprocessed_data
+      --accelerator 'gpu'
+      --devices 1
+      --batch-size 8
+      --validation-split 0.0
+      --num-test-examples 0
+      --max_epochs 10000
+      --checkpoint-epochs 100
+      --precision 32
+      --quality high"
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
