@@ -1,0 +1,4 @@
+data/wavs/*
+data/metadata.csv
+
+preprocessed_data
