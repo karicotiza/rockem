@@ -1,0 +1,20 @@
+name: rockem
+
+services:
+  preprocess:
+    container_name: rockem_preprocess
+    build: 
+      dockerfile: Dockerfile
+      context: src
+    volumes:
+      - ./data:/data:ro
+      - ./preprocessed_data:/preprocessed_data
+    command: "python -m piper_train.preprocess
+      --language en
+      --input-dir /data
+      --output-dir /preprocessed_data
+      --dataset-name rockem
+      --dataset-format ljspeech
+      --sample-rate 22050
+      --single-speaker
+      --max-workers 2"
