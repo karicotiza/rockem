@@ -1,0 +1,22 @@
+name: rockem
+
+services:
+  train_with_cpu:
+    container_name: train_with_cpu
+    build: 
+      dockerfile: Dockerfile
+      context: src
+    volumes:
+      - ./preprocessed_data:/preprocessed_data
+    tty: true
+    command: "python -m piper_train
+      --dataset-dir /preprocessed_data
+      --accelerator 'cpu'
+      --devices 1
+      --batch-size 2
+      --validation-split 0.0
+      --num-test-examples 0
+      --max_epochs 100
+      --checkpoint-epochs 10
+      --precision 32
+      --quality high"

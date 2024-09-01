@@ -1,8 +1,8 @@
 name: rockem
 
 services:
-  train:
-    container_name: train
+  train_with_cuda:
+    container_name: train_with_cuda
     build: 
       dockerfile: Dockerfile
       context: src
@@ -12,11 +12,11 @@ services:
       --dataset-dir /preprocessed_data
       --accelerator 'gpu'
       --devices 1
-      --batch-size 8
+      --batch-size 2
       --validation-split 0.0
       --num-test-examples 0
-      --max_epochs 10000
-      --checkpoint-epochs 100
+      --max_epochs 100
+      --checkpoint-epochs 10
       --precision 32
       --quality high"
     deploy:
