@@ -1,0 +1,17 @@
+name: rockem
+
+services:
+  test:
+    container_name: test
+    build: 
+      dockerfile: Dockerfile
+      context: src
+    volumes:
+      - ./preprocessed_data:/preprocessed_data
+      - ./output:/output
+    command: bash -c "
+      cat /app/piper/etc/test_sentences/test_en-us.jsonl |
+      python3 -m piper_train.infer
+      --sample-rate 22050
+      --checkpoint /preprocessed_data/lightning_logs/version_0/checkpoints/epoch=99-step=400.ckpt
+      --output-dir /output"
