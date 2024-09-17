@@ -3,4 +3,4 @@ preprocessed_data
 
 .venv
 data/wavs/*
-data/metadata
+data/metadata.csv
