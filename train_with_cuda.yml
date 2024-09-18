@@ -4,19 +4,19 @@ services:
   train_with_cuda:
     container_name: train_with_cuda
     build: 
-      dockerfile: Dockerfile
+      dockerfile: cuda.Dockerfile
       context: src
     volumes:
       - ./preprocessed_data:/preprocessed_data
-    command: "python -m piper_train
+    command: "python3 -m piper_train
       --dataset-dir /preprocessed_data
       --accelerator 'gpu'
       --devices 1
       --batch-size 2
       --validation-split 0.0
       --num-test-examples 0
-      --max_epochs 100
-      --checkpoint-epochs 10
+      --max_epochs 1
+      --checkpoint-epochs 1
       --precision 32
       --quality high"
     deploy:
