@@ -3,7 +3,6 @@ FROM python:3.10.14-bookworm
 WORKDIR /app
 
 RUN apt update -y
-RUN apt upgrade -y
 
 RUN apt install ffmpeg -y
 RUN apt install espeak-ng -y
