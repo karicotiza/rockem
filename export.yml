@@ -1,0 +1,21 @@
+name: rockem
+
+services:
+  export:
+    container_name: export
+    build: 
+      dockerfile: cuda.Dockerfile
+      context: src
+    volumes:
+      - ./preprocessed_data:/preprocessed_data
+      - ./exported_model:/exported_model
+    command: "python3 -m piper_train.export_onnx
+      /preprocessed_data/lightning_logs/version_31/checkpoints/epoch=999-step=408000.ckpt
+      /exported_model/epoch=999-step=408000.onnx"
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
